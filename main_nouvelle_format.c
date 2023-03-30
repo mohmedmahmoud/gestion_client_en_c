@@ -162,6 +162,131 @@ Client* chargerNouvelleFormat(Client* tete) {
      return tete;
 }
 
+void trier_clients_par_num(Client* tete) {
+    Client* courant = tete;
+    Client* suivant = NULL;
+    int temp_numero;
+    char temp_nom[50];
+    char temp_adresse[100];
+
+    if (tete == NULL) {
+        printf("La liste est vide.\n");
+        return;
+    }
+
+    while (courant != NULL) {
+        suivant = courant->next;
+        while (suivant != NULL) {
+            if (courant->numero > suivant->numero) {
+                temp_numero = courant->numero;
+                strcpy(temp_nom, courant->nom);
+                strcpy(temp_adresse, courant->adresse);
+                courant->numero = suivant->numero;
+                strcpy(courant->nom, suivant->nom);
+                strcpy(courant->adresse, suivant->adresse);
+
+                suivant->numero = temp_numero;
+                strcpy(suivant->nom, temp_nom);
+                strcpy(suivant->adresse, temp_adresse);
+            }
+            suivant = suivant->next;
+        }
+        courant = courant->next;
+    }
+
+    printf("Liste des clients triee selon leur numero.\n");
+    afficher_clients(tete);
+}
+
+void trier_clients_par_nom(Client* tete) {
+    Client* courant = tete;
+    Client* suivant = NULL;
+    int temp_numero;
+    char temp_nom[50];
+    char temp_adresse[100];
+
+    if (tete == NULL) {
+        printf("La liste est vide.\n");
+        return;
+    }
+
+    while (courant != NULL) {
+        suivant = courant->next;
+        while (suivant != NULL) {
+            if (strcmp(courant->nom, suivant->nom) > 0) {
+                temp_numero = courant->numero;
+                strcpy(temp_nom, courant->nom);
+                strcpy(temp_adresse, courant->adresse);
+                courant->numero = suivant->numero;
+                strcpy(courant->nom, suivant->nom);
+                strcpy(courant->adresse, suivant->adresse);
+
+                suivant->numero = temp_numero;
+                strcpy(suivant->nom, temp_nom);
+                strcpy(suivant->adresse, temp_adresse);
+            }
+            suivant = suivant->next;
+        }
+        courant = courant->next;
+    }
+
+    printf("Liste des clients triee selon leur nom.\n");
+    afficher_clients(tete);
+}
+
+void trier_clients_par_adresse(Client* tete) {
+    Client* courant = tete;
+    Client* suivant = NULL;
+    int temp_numero;
+    char temp_nom[50];
+    char temp_adresse[100];
+
+    if (tete == NULL) {
+        printf("La liste est vide.\n");
+        return;
+    }
+
+    while (courant != NULL) {
+        suivant = courant->next;
+        while (suivant != NULL) {
+            if (strcmp(courant->adresse, suivant->adresse) > 0) {
+                temp_numero = courant->numero;
+                strcpy(temp_nom, courant->nom);
+                strcpy(temp_adresse, courant->adresse);
+                courant->numero = suivant->numero;
+                strcpy(courant->nom, suivant->nom);
+                strcpy(courant->adresse, suivant->adresse);
+
+                suivant->numero = temp_numero;
+                strcpy(suivant->nom, temp_nom);
+                strcpy(suivant->adresse, temp_adresse);
+            }
+            suivant = suivant->next;
+        }
+        courant = courant->next;
+    }
+
+    printf("Liste des clients triee selon leur adresse.\n");
+    afficher_clients(tete);
+}
+
+void sizeOfClients(Client* tete){
+    Client* courant = tete;
+    int size=0;
+     if (tete == NULL) {
+        printf("La liste est vide. size : 0\n");
+        return;
+    }
+    while(courant!=NULL){
+        size++;
+        courant=courant->next;
+    }
+
+     printf("le nombre des clients size : %d\n", size);
+
+    
+}
+
 
 // ---------------------------------------------------------MENU-------------------
 
@@ -182,7 +307,11 @@ void menu(Client* tete) {
         }else{
          printf("7. Desactiver l'enregistrement automatique\n");   
         }
-        printf("8. Quitter\n");
+        printf("8. Liste des clients selon leur numero\n");
+        printf("9. Liste des clients selon leur nom\n");
+        printf("10. Liste des clients selon leur addresse\n");
+        printf("11. le nombre de client \n");
+        printf("12. Quitter\n");
         
         scanf("%d", &choix);
 
@@ -223,7 +352,7 @@ void menu(Client* tete) {
                 break;
             case 4: {
                
-                charger_liste(tete);
+                chargerNouvelleFormat(tete);
                 break;
             }
              case 5: {
@@ -254,7 +383,23 @@ void menu(Client* tete) {
                 }
                   break;
             }
-            case 8:{
+             case 8:{
+                trier_clients_par_num(tete);
+                break;
+            }
+             case 9:{
+                trier_clients_par_nom(tete);
+                break;
+            }
+             case 10:{
+                trier_clients_par_adresse(tete);
+                break;
+            }
+             case 11:{
+                sizeOfClients(tete);
+                break;
+            }
+            case 12:{
                 printf("Au revoir!\n");
                 break;
             }
@@ -265,7 +410,7 @@ void menu(Client* tete) {
          if(is_enregistrement_auto_active!=0 ) {
                enregistrer_listeNouvelleFormat(tete);
          }
-    } while (choix != 8);
+    } while (choix != 12);
 }
 
 
@@ -279,12 +424,11 @@ void menu(Client* tete) {
 
 int main() {
    
-   
-
     Client* tete = NULL;
    
     // lire les daonnes de ficher
    tete= chargerNouvelleFormat(tete);
+   
  
 
     // Affichage des clients les choix 

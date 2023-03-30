@@ -86,7 +86,7 @@ void inserer_client(Client** tete, int numero, char* nom, char* adresse) {
         Client* client = creer_noeud(numero, nom, adresse);
 
         // Insertion du nouveau noeud en tête de liste
-        inserer_en_tete(&tete, client);
+        inserer_en_fin(&tete, client);
     }
    
 
@@ -164,8 +164,8 @@ void menu(Client* tete) {
         printf("1. Ajouter a la tete de la list\n");
         printf("2. Ajouter a la fin de la list\n");
         printf("3. Afficher la liste\n");
-        printf("4. Charger une liste depuis un fichier\n");
-        printf("5. Modifier un utilisateur \n");
+        printf("4. Charger la liste\n");
+        printf("5. Modifier un Client\n");
         printf("6. suprimmer un Client\n");
         if(is_enregistrement_auto_active==0){
         printf("7. Activer l'enregistrement automatique\n");

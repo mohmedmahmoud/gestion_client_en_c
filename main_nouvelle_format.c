@@ -11,7 +11,7 @@ struct Client {
     Client* next;
 };
 
-char nom_fichier[50]="client_nouvelle_format.txt";
+char nom_fichier[50]="clients.txt";
 int is_enregistrement_auto_active=0;
 
 Client* creer_noeud(int numero, char* nom, char* adresse) {
@@ -42,7 +42,7 @@ void inserer_en_fin(Client** tete, Client* client) {
 }
 
 
-void afficher_clients(Client* tete) {
+void  afficher_clients(Client* tete) {
     printf("Liste des clients :\n");
     while (tete != NULL) {
         printf("  Numéro  : %d\n", tete->numero);
@@ -305,7 +305,7 @@ void menu(Client* tete) {
         if(is_enregistrement_auto_active==0){
         printf("7. Activer l'enregistrement automatique\n");
         }else{
-         printf("7. Desactiver l'enregistrement automatique\n");   
+         printf("7. Desactiver l'enregistrement aut omatique\n");   
         }
         printf("8. Liste des clients selon leur numero\n");
         printf("9. Liste des clients selon leur nom\n");

@@ -23,12 +23,41 @@ Client* creer_noeud(int numero, char* nom, char* adresse) {
     return client;
 }
 
+
+int checkNumExist(Client** tete, int numero){
+   
+    
+    Client* courant = *tete;
+     if (courant == NULL) {
+        printf("La liste est vide : 0\n");
+        return 0;
+    }
+    while(courant!=NULL){
+        if(numero==courant->numero){
+        printf("le client existe deja \n");
+     
+        
+        return 0;
+        }else{
+             courant=courant->next;
+        }
+       
+    } 
+    return 1; 
+    
+ 
+}
+
 void inserer_en_tete(Client** tete, Client* client) {
+   
     client->next = *tete;
     *tete = client;
+    
 }
 
 void inserer_en_fin(Client** tete, Client* client) {
+    //  int isExist =checkNumExist(tete,client->numero);
+    // if(isExist==1){
     if (*tete == NULL) {
         *tete = client;
     } else {
@@ -39,6 +68,7 @@ void inserer_en_fin(Client** tete, Client* client) {
         courant->next = client;
     }
     client->next = NULL;
+    // }
 }
 
 
@@ -291,9 +321,7 @@ void chercherParNum(Client* tete){
     int numero;
      printf("Numero du client chercher: ");
     scanf("%d", &numero);
-    int temp_numero;
-    char temp_nom[50];
-    char temp_adresse[100];
+    
     Client* courant = tete;
      if (courant == NULL) {
         printf("La liste est vide : 0\n");
@@ -360,12 +388,16 @@ void menu(Client* tete) {
                 char nom[50];
                 char adresse[100];
                 printf("Numero du client: ");
+
                 scanf("%d", &numero);
+                 int isExist =checkNumExist(&tete,numero);
+                 if(isExist==1){
                 printf("Nom du client: ");
                 scanf("%s", nom);
                 printf("Adresse du client: ");
                 scanf("%s", adresse);
                 inserer_en_tete(&tete, creer_noeud(numero, nom, adresse));
+                 }
                 break;
             }
             case 2: {
@@ -374,11 +406,14 @@ void menu(Client* tete) {
                 char adresse[100];
                 printf("Numero du client: ");
                 scanf("%d", &numero);
+                 int isExist =checkNumExist(&tete,numero);
+                 if(isExist==1){
                 printf("Nom du client: ");
                 scanf("%s", nom);
                 printf("Adresse du client: ");
                 scanf("%s", adresse);
                 inserer_en_fin(&tete, creer_noeud(numero, nom, adresse));
+                 }
                 break;
             }
             case 3:

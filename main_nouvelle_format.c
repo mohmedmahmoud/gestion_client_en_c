@@ -11,7 +11,7 @@ struct Client {
     Client* next;
 };
 
-char nom_fichier[50]="clients.txt";
+char nom_fichier[50]="kholio.txt";
 int is_enregistrement_auto_active=0;
 
 Client* creer_noeud(int numero, char* nom, char* adresse) {
@@ -109,7 +109,7 @@ void modifier_client(Client* tete, int numero, char* nouveau_nom, char* nouvelle
     printf("Client %d modifie avec succes\n", numero);
 }
 
-// ---------------------------------------------------------nouvelle format-------------------
+// ----------------------------------nouvelle format-------------------
 
 
 void enregistrer_listeNouvelleFormat(Client* tete) {
@@ -274,7 +274,7 @@ void sizeOfClients(Client* tete){
     Client* courant = tete;
     int size=0;
      if (tete == NULL) {
-        printf("La liste est vide. size : 0\n");
+        printf("La liste est vide : 0\n");
         return;
     }
     while(courant!=NULL){
@@ -282,17 +282,50 @@ void sizeOfClients(Client* tete){
         courant=courant->next;
     }
 
-     printf("le nombre des clients size : %d\n", size);
+     printf("le nombre des clients : %d\n", size);
+
+    
+}
+
+void chercherParNum(Client* tete){
+    int numero;
+     printf("Numero du client chercher: ");
+    scanf("%d", &numero);
+    int temp_numero;
+    char temp_nom[50];
+    char temp_adresse[100];
+    Client* courant = tete;
+     if (courant == NULL) {
+        printf("La liste est vide : 0\n");
+        return;
+    }
+    while(courant!=NULL){
+        if(numero==courant->numero){
+        printf("  Numéro  : %d\n", courant->numero);
+        printf("  Nom     : %s\n", courant->nom);
+        printf("  Adresse : %s\n", courant->adresse);
+        printf("\n");
+        numero = 9999;
+        break;
+        }else{
+             courant=courant->next;
+        }
+       
+    }  
+    if(numero != 9999){
+    printf("le client n'existe pas \n");
+    }
 
     
 }
 
 
-// ---------------------------------------------------------MENU-------------------
+
+// -----------------------------------MENU-------------------
 
 void menu(Client* tete) {
     int choix = 0;
-    do {
+    // do {
        
         printf("\nChoisissez une operation:\n");
         printf("0. Enregistrer les changement dans le fichier\n");
@@ -311,7 +344,8 @@ void menu(Client* tete) {
         printf("9. Liste des clients selon leur nom\n");
         printf("10. Liste des clients selon leur addresse\n");
         printf("11. le nombre de client \n");
-        printf("12. Quitter\n");
+        printf("12. rechercher un client \n");
+        printf("13. Quitter\n");
         
         scanf("%d", &choix);
 
@@ -399,7 +433,11 @@ void menu(Client* tete) {
                 sizeOfClients(tete);
                 break;
             }
-            case 12:{
+             case 12:{
+                chercherParNum(tete);
+                break;
+            }
+            case 13:{
                 printf("Au revoir!\n");
                 break;
             }
@@ -410,10 +448,27 @@ void menu(Client* tete) {
          if(is_enregistrement_auto_active!=0 ) {
                enregistrer_listeNouvelleFormat(tete);
          }
-    } while (choix != 12);
+    // } while (choix != 13);
+    // listChoix(tete);
+
 }
 
 
+
+//  list des choix
+void listChoix(Client* tete){
+     int choix = 0;
+     do {
+   
+    printf(" tapez 1 pour afficher la menu \n");
+    scanf("%d", &choix);
+    if(choix==1){
+        menu(tete);
+    }
+   
+} while (choix == 1);
+
+}
 
 
 
@@ -432,7 +487,8 @@ int main() {
  
 
     // Affichage des clients les choix 
-    menu(tete);
+    // menu(tete);
+    listChoix(tete);
     
     return 0;
 }

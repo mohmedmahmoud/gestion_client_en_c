@@ -353,7 +353,7 @@ void chercherParNum(Client* tete){
 
 void menu(Client* tete) {
     int choix = 0;
-    // do {
+    do {
        
         printf("\nChoisissez une operation:\n");
         printf("0. Enregistrer les changement dans le fichier\n");
@@ -483,7 +483,7 @@ void menu(Client* tete) {
          if(is_enregistrement_auto_active!=0 ) {
                enregistrer_listeNouvelleFormat(tete);
          }
-    // } while (choix != 13);
+    } while (choix != 13);
     // listChoix(tete);
 
 }
@@ -492,16 +492,16 @@ void menu(Client* tete) {
 
 //  list des choix
 void listChoix(Client* tete){
-     int choix = 0;
+     int choi = 0;
      do {
    
     printf(" tapez 1 pour afficher la menu \n");
-    scanf("%d", &choix);
-    if(choix==1){
+    scanf("%d", &choi);
+    if(choi==1){
         menu(tete);
     }
    
-} while (choix == 1);
+} while (choi == 1);
 
 }
 
@@ -522,8 +522,8 @@ int main() {
  
 
     // Affichage des clients les choix 
-    // menu(tete);
-    listChoix(tete);
+     menu(tete);
+    // listChoix(tete);
     
     return 0;
 }
